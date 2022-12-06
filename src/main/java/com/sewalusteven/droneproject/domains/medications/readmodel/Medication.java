@@ -1,13 +1,26 @@
-package com.sewalusteven.droneproject.domains.medications;
+package com.sewalusteven.droneproject.domains.medications.readmodel;
 
+import jakarta.persistence.*;
+
+@Entity
 public class Medication {
-    private  int Id;
+
+    @Id
+    @SequenceGenerator(
+            name = "medication_sequence",
+            sequenceName = "medication_id_sequence"
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "medication_id_sequence"
+    )
+    private  Integer Id;
     private String name;
     private int weight;
     private String code;
     private String imagePath;
 
-    public Medication(int id, String name, int weight, String code, String imagePath) {
+    public Medication(Integer id, String name, int weight, String code, String imagePath) {
         Id = id;
         this.name = name;
         this.weight = weight;
@@ -18,11 +31,11 @@ public class Medication {
     public Medication() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return Id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         Id = id;
     }
 
