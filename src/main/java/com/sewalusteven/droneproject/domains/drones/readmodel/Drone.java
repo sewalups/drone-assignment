@@ -18,9 +18,11 @@ public class Drone {
     )
     private Integer id;
     private String serialNumber;
+    @Enumerated(EnumType.STRING)
     private DroneModel model;
     private Integer weight;
     private Integer battery;
+    @Enumerated(EnumType.STRING)
     private DroneState state;
 
     public Drone() {
