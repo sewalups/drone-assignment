@@ -1,5 +1,6 @@
 package com.sewalusteven.droneproject.domains.drones.handler;
 
+import com.sewalusteven.droneproject.domains.drones.readmodel.DroneRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +14,13 @@ import java.util.Objects;
 public class DroneScheduledTasks {
     private final DroneService service;
     private static final Logger log = LoggerFactory.getLogger(DroneScheduledTasks.class);
+    private final DroneRepository droneRepository;
 
     @Autowired
-    public DroneScheduledTasks(DroneService service) {
+    public DroneScheduledTasks(DroneService service,
+                               DroneRepository droneRepository) {
         this.service = service;
+        this.droneRepository = droneRepository;
     }
 
     @Scheduled(fixedRate = 120000)
@@ -28,6 +32,8 @@ public class DroneScheduledTasks {
 
         drones.forEach(d ->{
             log.info(String.format("Drone with serial no: %s has a Battery Percentage of %s as of time %s",d.getSerialNumber(),d.getBattery(), LocalDateTime.now()));
+            d.setBattery(d.getBattery() - 2);
+            droneRepository.save(d);
         });
     }
 

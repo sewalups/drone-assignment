@@ -37,7 +37,7 @@ public class DroneResource {
     }
 
     @GetMapping(path = "/{droneId}/_medications")
-    public ResponseEntity<Set<Medication>> loadDrone(@PathVariable("droneId") Integer droneId) {
+    public ResponseEntity<Set<Medication>> checkLoadForDrone(@PathVariable("droneId") Integer droneId) {
         var medicationLoad = service.checkLatestLoadedMedicationsOnDrone(droneId);
         return new ResponseEntity<>(medicationLoad, HttpStatus.OK);
     }

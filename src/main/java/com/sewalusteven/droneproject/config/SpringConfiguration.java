@@ -36,22 +36,22 @@ public class SpringConfiguration implements CommandLineRunner {
         if(droneRepository.count() == 0){
             List<Drone> dronesToSeed = new ArrayList<>();
 
-            for (int i = 1; i < 10 ; i++) {
+            for (int i = 1; i <= 10 ; i++) {
                 Faker faker = new Faker();
                 var battery = faker.number().numberBetween(0,100);
                 var weightLimit = faker.number().numberBetween(100,500);
                 if(i%2 == 0){
                     if(i > 5){
-                        dronesToSeed.add(new Drone(faker.code().imei(), DroneModel.CRUISER_WEIGHT,weightLimit,battery, DroneState.IDLE));
+                        dronesToSeed.add(new Drone(faker.code().imei(), DroneModel.Cruiserweight,weightLimit,battery, DroneState.IDLE));
                     }else{
-                        dronesToSeed.add(new Drone(faker.code().imei(), DroneModel.LIGHT_WEIGHT,weightLimit,battery, DroneState.IDLE));
+                        dronesToSeed.add(new Drone(faker.code().imei(), DroneModel.Lightweight,weightLimit,battery, DroneState.IDLE));
                     }
 
                 }else{
                     if(i > 5){
-                        dronesToSeed.add(new Drone(faker.code().imei(), DroneModel.HEAVY_WEIGHT,weightLimit,battery, DroneState.IDLE));
+                        dronesToSeed.add(new Drone(faker.code().imei(), DroneModel.Heavyweight,weightLimit,battery, DroneState.IDLE));
                     }else{
-                        dronesToSeed.add(new Drone(faker.code().imei(), DroneModel.MIDDLE_WEIGHT,weightLimit,battery, DroneState.IDLE));
+                        dronesToSeed.add(new Drone(faker.code().imei(), DroneModel.Middleweight,weightLimit,battery, DroneState.IDLE));
                     }
                 }
 

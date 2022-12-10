@@ -1,5 +1,6 @@
 package com.sewalusteven.droneproject.domains.drones.handler;
 
+import com.sewalusteven.droneproject.domains.drones.exceptions.DroneExistsException;
 import com.sewalusteven.droneproject.domains.drones.exceptions.DroneNotFound;
 import com.sewalusteven.droneproject.domains.drones.payloads.DronePayloads;
 import com.sewalusteven.droneproject.domains.drones.readmodel.Drone;
@@ -34,6 +35,11 @@ public class DroneService {
     }
 
     public Drone registerDrone(DronePayloads.Request request) {
+        var droneDoc = store.findDroneBySerialNumber(request.serialNumber());
+        if(droneDoc.isPresent()){
+            throw new DroneExistsException(request.serialNumber());
+        }
+
         validateDrone(request);
         var drone = new Drone(
                 request.serialNumber(),
@@ -61,13 +67,13 @@ public class DroneService {
             throw new RuntimeException("Drone cannot be loaded because it is being used");
         }
 
-        changeDroneStatus(drone, DroneState.LOADING);
-
         var medications = new HashSet<>(medStore.findAllById(medicationIds));
         if(medications.isEmpty()){
             throw new MedicationNotFound();
         }
         validateMedicationWeightToDrone(drone, medications);
+
+        changeDroneStatus(drone, DroneState.LOADING);
 
         var load =  new Load(drone, medications, LocalDate.now());
         loadStore.save(load);
