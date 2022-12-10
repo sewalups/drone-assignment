@@ -45,6 +45,10 @@ public class DroneService {
         return  drone;
     }
 
+    public List<Drone> getAllDrones(){
+        return store.findAll();
+    }
+
     public Load loadDrone(List<Integer> medicationIds, Integer droneId){
         var drone = store.findById(droneId)
                 .orElseThrow(() -> new DroneNotFound(droneId));

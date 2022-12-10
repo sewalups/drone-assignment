@@ -21,9 +21,7 @@ public class DronePayloads {
             Integer weight,
             Integer battery,
             DroneState state
-    ){
-
-    }
+    ){}
 
     public record MedicationsLoad(
             List<Integer> medicationIds

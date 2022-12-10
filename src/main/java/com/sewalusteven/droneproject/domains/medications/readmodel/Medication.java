@@ -28,6 +28,13 @@ public class Medication {
         this.imagePath = imagePath;
     }
 
+    public Medication(String name, int weight, String code, String imagePath) {
+        this.name = name;
+        this.weight = weight;
+        this.code = code;
+        this.imagePath = imagePath;
+    }
+
     public Medication() {
     }
 
